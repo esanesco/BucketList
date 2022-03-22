@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Bucket List {% endblock %}</title>
+
+    {#    link to stylesheets #}
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    {#    link to favicon #}
+    <link rel="icon" href="{{ asset('img/favicon.png') }}">
+
+    {#    link to google fonts #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<header>
+    <div class="container">
+
+        <h1 class="header-logo"><a href="{{ path('main_home') }}" title="Go back to homepage">
+                <img src="{{ asset('img/logo-512.png') }}" alt="Bucket List Logo"> Bucket List</a>
+        </h1>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="{{ path('main_home') }}">Home</a></li>
+                <li><a href="{{ path('wish_list') }}">All wishes</a></li>
+
+                <li><a href="{{ path('main_aboutUs') }}">About us</a></li>
+
+                {% if app.user %}
+                    <li><a href="{{ path('wish_create') }}">Add yours!</a></li>
+                    <li><a href="{{ path('app_logout') }}">Logout {{ app.user.email }}</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">Login</a></li>
+                    <li><a href="{{ path('app_login') }}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+{# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<main>
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        &copy Bucket List {{ "now"|date("Y") }}
+    </div>
+
+</footer>
+
+</body>
+</html>

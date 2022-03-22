@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>About us</h1>
+    <section class="team-members">
+        {% for member in teamMembers %}
+
+            <article>
+
+                    <img src='{{ member.picture }}' alt="profile picture">
+
+                <div>
+                    <h2>{{ member.firstname }} {{ member.lastname }} {% if (member.firstname=='Fabien') %}{{ '❤' }} {% endif %}</h2>
+                    <p>{{ member.dateOfBirth  }}</p>
+                    <p>Creator of {{ member.creatorOf }}</p>
+                    <p>{{ member.description }}</p>
+                </div>
+
+            </article>
+
+        {% endfor %}
+    </section>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | About Us
+{% endblock %}
+
